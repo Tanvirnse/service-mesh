@@ -26,7 +26,7 @@ spec:
       containers:
       - name: python-app
         # IMPORTANT: Change this to your registry if you pushed the image
-        image: my-python-app:v1
+        image: m2s-registry.osl.team/tanvir-devops/my-python-app
         imagePullPolicy: IfNotPresent # Use this for local images
         ports:
         - containerPort: 5000
@@ -56,7 +56,7 @@ spec:
         version: v2
     spec:
       containers:
-      - name: python-app
+      - name: m2s-registry.osl.team/tanvir-devops/my-python-app
         # IMPORTANT: Change this to your registry if you pushed the image
         image: my-python-app:v2
         imagePullPolicy: IfNotPresent # Use this for local images
