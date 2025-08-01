@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: istio-test
+  labels:
+    # This label enables automatic Istio sidecar injection
+    istio-injection: enabled
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app-v1
+  namespace: istio-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: python-app
+        version: v1
+    spec:
+      containers:
+      - name: python-app
+        # IMPORTANT: Change this to your registry if you pushed the image
+        image: my-python-app:v1
+        imagePullPolicy: IfNotPresent # Use this for local images
+        ports:
+        - containerPort: 5000
+        env:
+        - name: APP_VERSION
+          value: "v1"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app-v2
+  namespace: istio-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: python-app
+        version: v2
+    spec:
+      containers:
+      - name: python-app
+        # IMPORTANT: Change this to your registry if you pushed the image
+        image: my-python-app:v2
+        imagePullPolicy: IfNotPresent # Use this for local images
+        ports:
+        - containerPort: 5000
+        env:
+        - name: APP_VERSION
+          value: "v2"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app-service
+  namespace: istio-test
+spec:
+  selector:
+    # This service selects BOTH v1 and v2 pods
+    app: python-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
