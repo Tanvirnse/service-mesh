@@ -1,0 +1,25 @@
+# ... (Gateway and DestinationRule are unchanged) ...
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: python-app-vs
+  namespace: istio-test
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - python-app-gateway
+  http:
+  - match:
+    - uri:
+        prefix: "/page1"
+    route:
+    - destination:
+        host: python-app-service
+        subset: v2
+  - route:
+    # Default route for all other paths
+    - destination:
+        host: python-app-service
+        subset: v1
