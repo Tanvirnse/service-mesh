@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: python-app-gateway
+  namespace: istio-test
+spec:
+  selector:
+    istio: ingressgateway # make sure this matches your Istio ingress gateway service
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+    - "*" # Replace with your domain
+    tls:
+      mode: SIMPLE
+      credentialName: python-app-cert # matches the secret name in istio-system
