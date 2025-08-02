@@ -18,7 +18,7 @@ spec:
       name: https
       protocol: HTTPS
     hosts:
-    - "*" # Replace with your domain
+    - "exp8.osl.team" # Replace with your domain
     tls:
       mode: SIMPLE
       credentialName: python-app-cert # matches the secret name in istio-system
