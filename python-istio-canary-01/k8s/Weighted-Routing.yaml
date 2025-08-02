@@ -5,7 +5,7 @@ metadata:
   namespace: istio-test
 spec:
   hosts:
-  - "*" # Same as in Gateway
+  - "exp8.osl.team" # Same as in Gateway
   gateways:
   - python-app-gateway
   http:

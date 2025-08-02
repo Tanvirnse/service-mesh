@@ -12,7 +12,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "*"
+    - "exp8.osl.team"
   - port:
       number: 443
       name: https
