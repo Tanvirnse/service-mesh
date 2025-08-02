@@ -9,7 +9,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - python-app-gateway
+  - python-app-header-gateway
   http:
   - match:
     - headers:
@@ -26,3 +26,6 @@ spec:
     - destination:
         host: python-app-service
         subset: v1
+
+# curl -k -H "Host: exp8.osl.team" -H "end-user: tester" https://exp8.osl.team
+# curl -k -H "Host: exp8.osl.team" https://exp8.osl.team
