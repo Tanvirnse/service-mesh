@@ -12,6 +12,8 @@ spec:
   - match:
     - uri:
         prefix: "/page1"
+    - uri:
+        prefix: "/page4"
     route:
     - destination:
         host: python-app-service
