@@ -45,3 +45,24 @@ spec:
     - destination:
         host: backend-service
         subset: v1
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: kiali-vs
+  namespace: istio-system
+spec:
+  # This must match the hostname defined in the Gateway above
+  hosts:
+  - "exp-kiali.osl.team"
+  # This virtual service is bound to the gateway we created
+  gateways:
+  - app-gateway
+  http:
+  - route:
+    - destination:
+        # This is the internal Kubernetes service for Kiali
+        host: kiali.istio-system.svc.cluster.local
+        port:
+          # This is the port the Kiali service listens on
+          number: 20001
