@@ -25,29 +25,6 @@ spec:
 #      privateKey: sds  # required field but ignored when using SDS (default)
 #     serverCertificate: sds  # required field but ignored when using SDS (default)
 ---
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: app-gateway
-  namespace: istio-system
-spec:
-  selector:
-    istio: ingress # default label for Istio's ingress gateway
-  servers:
-#  - port:
-#      number: 80
-#      name: http
-#      protocol: HTTP
-#    hosts:
-#    - "*"
-  - port:
-      number: 443
-      name: https
-      protocol: HTTPS
-    hosts:
-    - "*" # Replace with your real domain
-    tls:
-      mode: SIMPLE
-      credentialName: python-app-cert
+
 
 
