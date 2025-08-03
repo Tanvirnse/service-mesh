@@ -7,7 +7,7 @@ spec:
   hosts:
   - "exp9.osl.team"
   gateways:
-  - trace-gateway
+  - app-gateway
   http:
   - route:
     - destination:
