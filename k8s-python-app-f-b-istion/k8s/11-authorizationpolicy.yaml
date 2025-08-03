@@ -15,5 +15,5 @@ spec:
         principals: ["cluster.local/ns/istio-apps/sa/frontend-sa"]
     to:
     - operation:
-        methods: ["GET"]
+        methods: ["post"]
         paths: ["/api/data"]
