@@ -7,7 +7,7 @@ spec:
   selector:
     istio: ingress # default label for Istio's ingress gateway
   servers:
-  - port:
+#  - port:
 #      number: 80
 #      name: http
 #      protocol: HTTP
