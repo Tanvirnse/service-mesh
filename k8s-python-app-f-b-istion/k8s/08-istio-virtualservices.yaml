@@ -62,7 +62,7 @@ spec:
   - route:
     - destination:
         # This is the internal Kubernetes service for Kiali
-        host: kiali.istio-system.svc.cluster.local
+        host: kiali
         port:
           # This is the port the Kiali service listens on
           number: 20001
