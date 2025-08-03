@@ -45,7 +45,7 @@ spec:
       name: https
       protocol: HTTPS
     hosts:
-    - "*" # Replace with your real domain
+    - "exp-kiali.osl.team" # Replace with your real domain
     tls:
       mode: SIMPLE
       credentialName: python-app-cert
