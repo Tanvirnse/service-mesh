@@ -1,0 +1,19 @@
+# 3. AuthorizationPolicy to only allow frontend to call backend
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: frontend-to-backend-auth
+  namespace: istio-apps
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/istio-apps/sa/frontend-sa"]
+    to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/api/data"]
