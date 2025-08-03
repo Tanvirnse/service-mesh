@@ -39,13 +39,13 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "exp-kiali.osl.team"
+    - "*"
   - port:
       number: 443
       name: https
       protocol: HTTPS
     hosts:
-    - "exp-kiali.osl.team" # Replace with your real domain
+    - "*" # Replace with your real domain
     tls:
       mode: SIMPLE
       credentialName: python-app-cert
