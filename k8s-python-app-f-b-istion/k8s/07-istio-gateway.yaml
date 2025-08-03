@@ -23,4 +23,4 @@ spec:
       privateKey: sds  # required field but ignored when using SDS (default)
       serverCertificate: sds  # required field but ignored when using SDS (default)
 
-# kubectl create secret tls python-app-cert   --cert=/home/devops/osl-team/public.crt   --key=/home/devops/osl-team/private.key   -n istio-ingress
+
