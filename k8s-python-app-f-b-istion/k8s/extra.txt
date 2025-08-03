@@ -1,3 +1,9 @@
 # helm upgrade istiod istio/istiod -n istio-system --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY
+# helm upgrade istiod istio/istiod -n istio-system --set meshConfig.outboundTrafficPolicy.mode=ALLOW_ANY
 # kubectl rollout restart deployment backend-v1 -n istio-apps
 # kubectl rollout restart deployment backend-v2 -n istio-apps
+
+$ enabling authrizationpolicy get will denied by rbac
+
+check mtls for a pod
+# istioctl proxy-config cluster frontend-v1-5cc4bb49f-p22mq -n istio-apps --fqdn "outbound|8000||backend-service.istio-apps.svc.cluster.local" -o json
