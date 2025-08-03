@@ -1,4 +1,7 @@
 # Simulate service failures or delays for testing.
+# Introduces a 5-second delay on 100% of requests to v1.
+# Helps test how upstream services handle latency.
+
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
