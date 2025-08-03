@@ -11,6 +11,8 @@ spec:
       number: 80
       name: http
       protocol: HTTP
+    hosts:
+    - "exp9.osl.team"
   - port:
       number: 443
       name: https
@@ -20,7 +22,7 @@ spec:
     tls:
       mode: SIMPLE
       credentialName: python-app-cert  # Name of the Kubernetes TLS secret
-      privateKey: sds  # required field but ignored when using SDS (default)
-      serverCertificate: sds  # required field but ignored when using SDS (default)
+#      privateKey: sds  # required field but ignored when using SDS (default)
+#     serverCertificate: sds  # required field but ignored when using SDS (default)
 
 
