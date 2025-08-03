@@ -71,12 +71,26 @@ spec:
         ports:
         - containerPort: 8000
         env:
-        - name: APP_VERSION
-          value: "v2"
-        - name: POD_NAME
-          valueFrom: { fieldRef: { fieldPath: metadata.name } }
         - name: MYSQL_HOST
           valueFrom: { configMapKeyRef: { name: db-redis-config, key: MYSQL_HOST } }
+        - name: MYSQL_USER
+          valueFrom: { configMapKeyRef: { name: db-redis-config, key: MYSQL_USER } }
+        - name: MYSQL_DB
+          valueFrom: { configMapKeyRef: { name: db-redis-config, key: MYSQL_DB } }
+        - name: REDIS_HOST
+          valueFrom: { configMapKeyRef: { name: db-redis-config, key: REDIS_HOST } }
+        - name: REDIS_PORT
+          valueFrom: { configMapKeyRef: { name: db-redis-config, key: REDIS_PORT } }
+        - name: MYSQL_PASSWORD
+          valueFrom: { secretKeyRef: { name: db-redis-secrets, key: MYSQL_PASSWORD } }
+        - name: REDIS_PASSWORD
+          valueFrom: { secretKeyRef: { name: db-redis-secrets, key: REDIS_PASSWORD } }
+#        - name: APP_VERSION
+#          value: "v2"
+#        - name: POD_NAME
+#          valueFrom: { fieldRef: { fieldPath: metadata.name } }
+#        - name: MYSQL_HOST
+#          valueFrom: { configMapKeyRef: { name: db-redis-config, key: MYSQL_HOST } }
         # ... (rest of env vars are identical to v1) ...
       imagePullSecrets:
         - name: harbor-registry-secret
