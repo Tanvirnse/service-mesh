@@ -1,0 +1,27 @@
+# Allows only requests from workloads using the ServiceAccount python-app-sa in namespace istio-test
+# Denies all other requests — implicitly
+
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-only-python-app-sa
+  namespace: istio-test
+spec:
+  selector:
+    matchLabels:
+      app: python-app
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/istio-test/sa/python-app-sa"]
+
+
+# Default deny all policy (recommended for tighter security)
+#apiVersion: security.istio.io/v1beta1
+#kind: AuthorizationPolicy
+#metadata:
+#  name: default-deny
+#  namespace: istio-test
+#spec:
+#  {}

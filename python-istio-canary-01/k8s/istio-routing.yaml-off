@@ -37,11 +37,14 @@ metadata:
   namespace: istio-test
 spec:
   hosts:
-  - "*"
+  - "*" # Same as in Gateway
   gateways:
   - python-app-gateway
   http:
-  - route:
+  - match:
+    - uri:
+        prefix: /
+    route:
     - destination:
         host: python-app-service
         subset: v1

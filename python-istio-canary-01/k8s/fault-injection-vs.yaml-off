@@ -1,0 +1,21 @@
+# Simulate service failures or delays for testing.
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: python-app-fault
+  namespace: istio-test
+spec:
+  hosts:
+  - "exp8.osl.team"
+  gateways:
+  - python-app-gateway
+  http:
+  - fault:
+      delay:
+        percentage:
+          value: 100.0
+        fixedDelay: 5s
+    route:
+    - destination:
+        host: python-app-service
+        subset: v1

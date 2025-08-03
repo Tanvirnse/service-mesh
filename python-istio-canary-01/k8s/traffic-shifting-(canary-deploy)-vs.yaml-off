@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: python-app-shift
+  namespace: istio-test
+spec:
+  hosts:
+  - "exp8.osl.team"
+  gateways:
+  - python-app-gateway
+  http:
+  - route:
+    - destination:
+        host: python-app-service
+        subset: v1
+      weight: 70
+    - destination:
+        host: python-app-service
+        subset: v2
+      weight: 30

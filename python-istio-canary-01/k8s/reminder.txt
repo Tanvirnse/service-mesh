@@ -1,0 +1,17 @@
+Feature	                Resource(s)	                    Purpose
+Request Routing	        VirtualService	        Route by headers, paths, users
+Fault Injection	       	VirtualService	        Simulate failures/delays
+Traffic Shifting	    VirtualService	        Canary deployments
+TCP Traffic	            VirtualService (TCP)	Control TCP services (DBs, etc.)
+Request Timeouts	    VirtualService	        Set per-request time limits
+Circuit Breaking	    DestinationRule	        Protect service under load
+Mirroring	            VirtualService	        Test new versions invisibly
+
+To find a service account's principal identity (used in principals:):
+# istioctl x authz check <pod-name> -n istio-test
+
+It will return something like:
+source principal: cluster.local/ns/istio-test/sa/python-app-sa
+
+Locality Load Balancing is an important feature in Istio that helps optimize performance and availability in multi-region, multi-zone, or multi-cluster Kubernetes deployments.
+Istio can use locality-aware routing to prefer service instances that are closer to the caller, typically in the same region or zone (based on cloud topology). This improves latency and reduces cross-region traffic costs.

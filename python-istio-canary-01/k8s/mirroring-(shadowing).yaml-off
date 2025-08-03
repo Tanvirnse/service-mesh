@@ -1,0 +1,21 @@
+# Send a copy of live traffic to a mirrored version (e.g., for testing new versions).
+# All traffic goes to v1, but a copy is also sent to v2 asynchronously.
+# Useful to test v2 under real traffic without affecting users.
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: python-app-mirror
+  namespace: istio-test
+spec:
+  hosts:
+  - "exp8.osl.team"
+  gateways:
+  - python-app-gateway
+  http:
+  - route:
+    - destination:
+        host: python-app-service
+        subset: v1
+  - mirror:
+      host: python-app-service
+      subset: v2

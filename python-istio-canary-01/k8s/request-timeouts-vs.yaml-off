@@ -1,0 +1,18 @@
+# Timeout slow requests to avoid cascading failures.
+# Requests taking longer than 3 seconds to v1 will time out.
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: python-app-timeout
+  namespace: istio-test
+spec:
+  hosts:
+  - "exp8.osl.team"
+  gateways:
+  - python-app-gateway
+  http:
+  - timeout: 3s
+    route:
+    - destination:
+        host: python-app-service
+        subset: v1

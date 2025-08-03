@@ -1,0 +1,33 @@
+# Requests with header end-user: tester or URI path starting with /admin go to v2.
+# All other traffic goes to v1
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: python-app-routing
+  namespace: istio-test
+spec:
+  hosts:
+  - "exp8.osl.team"
+  gateways:
+  - python-app-gateway
+  http:
+  - match:
+    - headers:
+        end-user:
+          exact: tester
+    route:
+    - destination:
+        host: python-app-service
+        subset: v2
+  - match:
+    - uri:
+        prefix: /admin
+    route:
+    - destination:
+        host: python-app-service
+        subset: v2
+  - route:
+    - destination:
+        host: python-app-service
+        subset: v1

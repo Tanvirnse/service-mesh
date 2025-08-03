@@ -1,0 +1,31 @@
+# Protect services from overload by limiting concurrent connections and requests.
+# Limits max TCP connections and HTTP pending requests.
+# Ejects instances with frequent 5xx errors.
+# Prevents cascading failures when a service is unhealthy.
+
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: python-app-cb
+  namespace: istio-test
+spec:
+  host: python-app-service
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 10
+      http:
+        http1MaxPendingRequests: 1
+        maxRequestsPerConnection: 1
+    outlierDetection:
+      consecutive5xxErrors: 1
+      interval: 1s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 100
