@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: app-gateway
+  namespace: istio-apps
+spec:
+  selector:
+    istio: ingress # default label for Istio's ingress gateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+    - "exp9.osl.team" # Replace with your real domain
+    tls:
+      mode: SIMPLE
+      credentialName: app-cert-secret  # Name of the Kubernetes TLS secret
+      privateKey: sds  # required field but ignored when using SDS (default)
+      serverCertificate: sds  # required field but ignored when using SDS (default)

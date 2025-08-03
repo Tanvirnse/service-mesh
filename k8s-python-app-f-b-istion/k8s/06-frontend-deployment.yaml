@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-v1
+  namespace: istio-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: frontend
+        version: v1
+    spec:
+      serviceAccountName: frontend-sa
+      containers:
+      - name: frontend
+        image: m2s-registry.osl.team/tanvir-devops/py-app-frontend:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: APP_VERSION
+          value: "v1"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-v2
+  namespace: istio-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: frontend
+        version: v2
+    spec:
+      serviceAccountName: frontend-sa
+      containers:
+      - name: frontend
+        image: m2s-registry.osl.team/tanvir-devops/py-app-frontend:v2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: APP_VERSION
+          value: "v2"
+        - name: POD_NAME
+          valueFrom: { fieldRef: { fieldPath: metadata.name } }

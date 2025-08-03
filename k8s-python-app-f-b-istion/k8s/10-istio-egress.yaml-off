@@ -1,0 +1,59 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: external-mysql
+  namespace: istio-apps
+spec:
+  hosts:
+  - "external-mysql.local"   # A virtual host used by the app inside the mesh
+  addresses:
+  - 192.168.6.124/32         # IP of your external MySQL VM
+  ports:
+  - number: 3306
+    name: tcp-mysql
+    protocol: TCP
+  location: MESH_EXTERNAL
+  resolution: STATIC
+  endpoints:
+  - address: 192.168.6.124
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: external-redis
+  namespace: istio-apps
+spec:
+  hosts:
+  - "external-redis.local"   # A virtual host used by the app inside the mesh
+  addresses:
+  - 192.168.2.235/32         # IP of your external Redis VM
+  ports:
+  - number: 6379
+    name: tcp-redis
+    protocol: TCP
+  location: MESH_EXTERNAL
+  resolution: STATIC
+  endpoints:
+  - address: 192.168.2.235
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: egress-dr-mysql
+  namespace: istio-apps
+spec:
+  host: "external-mysql.local"
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: egress-dr-redis
+  namespace: istio-apps
+spec:
+  host: "external-redis.local"
+  trafficPolicy:
+    tls:
+      mode: DISABLE

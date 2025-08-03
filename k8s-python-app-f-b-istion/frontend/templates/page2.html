@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="info-box backend-box">
+    <h2>Backend Response</h2>
+    {% if backend_data %}
+        <p><strong>Source:</strong> {{ backend_data.source }}</p>
+        <p><strong>Serving Pod:</strong> {{ backend_data.pod_name }}</p>
+        <p><strong>App Version:</strong> {{ backend_data.app_version }}</p>
+        <p><strong>Backend Processing Time:</strong> {{ backend_data.processing_time_ms }} ms</p>
+        <h3>Database Info</h3>
+        <pre>{{ backend_data.database_info | tojson(indent=2) }}</pre>
+        <h3>Cache Info</h3>
+        <pre>{{ backend_data.cache_info | tojson(indent=2) }}</pre>
+    {% else %}
+        <p class="error">Could not fetch data from backend.</p>
+        <p class="error"><strong>Error:</strong> {{ error }}</p>
+    {% endif %}
+</div>
+{% endblock %}

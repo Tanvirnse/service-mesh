@@ -1,0 +1,9 @@
+body { font-family: sans-serif; background-color: #f4f4f4; color: #333; }
+.container { max-width: 800px; margin: auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+nav { background: #333; color: #fff; padding: 10px; text-align: center; margin-bottom: 20px; }
+nav a { color: #fff; text-decoration: none; padding: 10px 15px; }
+nav a:hover { background: #555; }
+.info-box { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px; background: #fafafa; }
+.backend-box { border-color: #aed6f1; background: #eaf2f8; }
+.error { color: #d9534f; font-weight: bold; }
+pre { background-color: #eee; padding: 10px; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
