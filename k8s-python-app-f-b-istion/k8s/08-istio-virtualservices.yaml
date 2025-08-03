@@ -57,7 +57,7 @@ spec:
   - "exp-kiali.osl.team"
   # This virtual service is bound to the gateway we created
   gateways:
-  - app-gateway
+  - default-gateway
   http:
   - route:
     - destination:
