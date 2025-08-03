@@ -19,6 +19,8 @@ spec:
     - "exp9.osl.team" # Replace with your real domain
     tls:
       mode: SIMPLE
-      credentialName: app-cert-secret  # Name of the Kubernetes TLS secret
+      credentialName: python-app-cert  # Name of the Kubernetes TLS secret
       privateKey: sds  # required field but ignored when using SDS (default)
       serverCertificate: sds  # required field but ignored when using SDS (default)
+
+# kubectl create secret tls python-app-cert   --cert=/home/devops/osl-team/public.crt   --key=/home/devops/osl-team/private.key   -n istio-ingress
