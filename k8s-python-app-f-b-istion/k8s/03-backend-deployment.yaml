@@ -18,7 +18,7 @@ spec:
       serviceAccountName: backend-sa
       containers:
       - name: backend
-        image: yourdockerhubusername/python-backend:v1
+        image: m2s-registry.osl.team/tanvir-devops/py-app-backend:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
@@ -43,6 +43,8 @@ spec:
           valueFrom: { secretKeyRef: { name: db-redis-secrets, key: MYSQL_PASSWORD } }
         - name: REDIS_PASSWORD
           valueFrom: { secretKeyRef: { name: db-redis-secrets, key: REDIS_PASSWORD } }
+      imagePullSecrets:
+        - name: harbor-registry-secret          
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -64,7 +66,7 @@ spec:
       serviceAccountName: backend-sa
       containers:
       - name: backend
-        image: yourdockerhubusername/python-backend:v2
+        image: m2s-registry.osl.team/tanvir-devops/py-app-backend:v2
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
@@ -76,3 +78,5 @@ spec:
         - name: MYSQL_HOST
           valueFrom: { configMapKeyRef: { name: db-redis-config, key: MYSQL_HOST } }
         # ... (rest of env vars are identical to v1) ...
+      imagePullSecrets:
+        - name: harbor-registry-secret

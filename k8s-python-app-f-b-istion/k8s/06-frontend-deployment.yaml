@@ -29,6 +29,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+      imagePullSecrets:
+        - name: harbor-registry-secret
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -59,3 +61,5 @@ spec:
           value: "v2"
         - name: POD_NAME
           valueFrom: { fieldRef: { fieldPath: metadata.name } }
+      imagePullSecrets:
+        - name: harbor-registry-secret          
