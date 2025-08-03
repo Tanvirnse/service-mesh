@@ -7,7 +7,7 @@ spec:
   hosts:
   - "exp9.osl.team"
   gateways:
-  - app-gateway
+  - trace-gateway
   http:
   - route:
     - destination:
@@ -57,7 +57,7 @@ spec:
   - "exp-kiali.osl.team"
   # This virtual service is bound to the gateway we created
   gateways:
-  - app-gateway
+  - trace-gateway
   http:
   - route:
     - destination:
