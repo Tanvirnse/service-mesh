@@ -18,7 +18,7 @@ spec:
       serviceAccountName: backend-sa
       containers:
       - name: backend
-        image: m2s-registry.osl.team/tanvir-devops/py-app-backend:v1
+        image: m2s-registry.osl.team/tanvir-devops/py-app-beckend:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
@@ -66,7 +66,7 @@ spec:
       serviceAccountName: backend-sa
       containers:
       - name: backend
-        image: m2s-registry.osl.team/tanvir-devops/py-app-backend:v2
+        image: m2s-registry.osl.team/tanvir-devops/py-app-beckend:v2
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
