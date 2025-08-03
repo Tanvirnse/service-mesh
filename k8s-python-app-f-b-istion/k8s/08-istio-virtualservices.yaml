@@ -54,7 +54,7 @@ metadata:
 spec:
   # This must match the hostname defined in the Gateway above
   hosts:
-  - "*"
+  - "exp-kiali.osl.team"
   # This virtual service is bound to the gateway we created
   gateways:
   - trace-gateway
