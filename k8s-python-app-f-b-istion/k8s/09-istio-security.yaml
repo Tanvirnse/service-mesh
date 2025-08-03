@@ -1,12 +1,12 @@
 # 1. PeerAuthentication to enforce mTLS for the entire namespace
-apiVersion: "security.istio.io/v1beta1"
-kind: "PeerAuthentication"
-metadata:
-  name: "default"
-  namespace: "istio-apps"
-spec:
-  mtls:
-    mode: STRICT
+#apiVersion: "security.istio.io/v1beta1"
+#kind: "PeerAuthentication"
+#etadata:
+#  name: "default"
+#  namespace: "istio-apps"
+#spec:
+# mtls:
+#   mode: STRICT
 ---
 # 2. DestinationRules to define subsets (v1, v2) and enable mTLS for clients
 apiVersion: networking.istio.io/v1alpha3
@@ -16,9 +16,9 @@ metadata:
   namespace: istio-apps
 spec:
   host: frontend-service
-  trafficPolicy:
-    tls:
-      mode: ISTIO_MUTUAL
+#  trafficPolicy:
+#    tls:
+#      mode: ISTIO_MUTUAL
   subsets:
   - name: v1
     labels:
@@ -34,9 +34,9 @@ metadata:
   namespace: istio-apps
 spec:
   host: backend-service
-  trafficPolicy:
-    tls:
-      mode: ISTIO_MUTUAL
+#  trafficPolicy:
+#   tls:
+#      mode: ISTIO_MUTUAL
   subsets:
   - name: v1
     labels:
@@ -44,23 +44,3 @@ spec:
   - name: v2
     labels:
       version: v2
----
-# 3. AuthorizationPolicy to only allow frontend to call backend
-apiVersion: security.istio.io/v1beta1
-kind: AuthorizationPolicy
-metadata:
-  name: frontend-to-backend-auth
-  namespace: istio-apps
-spec:
-  selector:
-    matchLabels:
-      app: backend
-  action: ALLOW
-  rules:
-  - from:
-    - source:
-        principals: ["cluster.local/ns/istio-apps/sa/frontend-sa"]
-    to:
-    - operation:
-        methods: ["GET"]
-        paths: ["/api/data"]
