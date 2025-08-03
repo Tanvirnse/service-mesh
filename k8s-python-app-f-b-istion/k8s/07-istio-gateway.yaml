@@ -18,7 +18,7 @@ spec:
       name: https
       protocol: HTTPS
     hosts:
-    - "exp9.osl.team" # Replace with your real domain
+    - "*" # Replace with your real domain
     tls:
       mode: SIMPLE
       credentialName: python-app-cert  # Name of the Kubernetes TLS secret

@@ -5,7 +5,7 @@ metadata:
   namespace: istio-apps
 spec:
   hosts:
-  - "*"
+  - "exp9.osl.team"
   gateways:
   - app-gateway
   http:
