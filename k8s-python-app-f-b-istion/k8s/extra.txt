@@ -1,0 +1,3 @@
+# helm upgrade istiod istio/istiod -n istio-system --set meshConfig.outboundTrafficPolicy.mode=REGISTRY_ONLY
+# kubectl rollout restart deployment backend-v1 -n istio-apps
+# kubectl rollout restart deployment backend-v2 -n istio-apps
