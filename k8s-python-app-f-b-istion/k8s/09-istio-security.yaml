@@ -1,6 +1,6 @@
 # 1. PeerAuthentication to enforce mTLS for the entire namespace
 apiVersion: "security.istio.io/v1beta1"
-kind: "PeerAuthentication"
+kind: PeerAuthentication
 metadata:
   name: "default"
   namespace: "istio-apps"
