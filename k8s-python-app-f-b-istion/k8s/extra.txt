@@ -7,3 +7,30 @@ $ enabling authrizationpolicy get will denied by rbac
 
 check mtls for a pod
 # istioctl proxy-config cluster frontend-v1-5cc4bb49f-p22mq -n istio-apps --fqdn "outbound|8000||backend-service.istio-apps.svc.cluster.local" -o json
+
+kubectl get sa -n istio-apps
+kubectl get gw -n istio-apps
+kubectl get vs -n istio-apps
+kubectl get dr -n istio-apps
+kubectl get se -n istio-apps
+kubectl get authorizationpolicy -n istio-apps
+
+    "transportSocket": {
+        "name": "envoy.transport_sockets.tls",
+        "typedConfig": {
+            "@type": "type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext",
+            "commonTlsContext": {
+                "tlsCertificateSdsSecretConfigs": [ // This is the client's certificate
+                    {
+                        "name": "default",
+                        "sdsConfig": { ... }
+                    }
+                ],
+                "validationContextSdsSecretConfig": { // This validates the server's certificate
+                    "name": "ROOTCA",
+                    "sdsConfig": { ... }
+                }
+            },
+            "sni": "outbound_.8000_._.backend-service.istio-apps.svc.cluster.local"
+        }
+    },
