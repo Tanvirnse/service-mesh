@@ -1,12 +1,12 @@
 # 1. PeerAuthentication to enforce mTLS for the entire namespace
-#apiVersion: "security.istio.io/v1beta1"
-#kind: "PeerAuthentication"
-#etadata:
-#  name: "default"
-#  namespace: "istio-apps"
-#spec:
-# mtls:
-#   mode: STRICT
+apiVersion: "security.istio.io/v1beta1"
+kind: "PeerAuthentication"
+etadata:
+  name: "istio-apps-pa"
+  namespace: "istio-apps"
+spec:
+ mtls:
+   mode: STRICT
 ---
 # 2. DestinationRules to define subsets (v1, v2) and enable mTLS for clients
 apiVersion: networking.istio.io/v1alpha3
@@ -16,9 +16,9 @@ metadata:
   namespace: istio-apps
 spec:
   host: frontend-service
-#  trafficPolicy:
-#    tls:
-#      mode: ISTIO_MUTUAL
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
   subsets:
   - name: v1
     labels:
@@ -34,9 +34,9 @@ metadata:
   namespace: istio-apps
 spec:
   host: backend-service
-#  trafficPolicy:
-#   tls:
-#      mode: ISTIO_MUTUAL
+  trafficPolicy:
+   tls:
+      mode: ISTIO_MUTUAL
   subsets:
   - name: v1
     labels:
