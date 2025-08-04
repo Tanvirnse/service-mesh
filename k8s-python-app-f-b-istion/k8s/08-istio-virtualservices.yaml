@@ -75,7 +75,7 @@ spec:
 apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
-  name: kiali-vs
+  name: jaeger-vs
   namespace: istio-system
 spec:
   # This must match the hostname defined in the Gateway above
