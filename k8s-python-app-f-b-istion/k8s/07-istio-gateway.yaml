@@ -29,7 +29,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: default-gateway
-  namespace: istio-ingress
+  namespace: istio-system
 spec:
   selector:
     istio: ingress # default label for Istio's ingress gateway
