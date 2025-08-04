@@ -30,21 +30,26 @@ metadata:
   namespace: istio-apps
 spec:
   hosts:
-  - backend-service.istio-apps.svc.cluster.local # The internal k8s FQDN
+  - backend-service.istio-apps.svc.cluster.local
   http:
   - match:
-    - headers:
-        x-app-version: # This header is set by the frontend app
-          exact: "v2"
+    - uri:
+        exact: /page1
     route:
     - destination:
         host: backend-service
-        subset: v2
-  # Default route for all other traffic
-  - route:
+        subset: v1
+  - match:
+    - uri:
+        exact: /page2
+    route:
     - destination:
         host: backend-service
         subset: v1
+  - route:
+    - destination:
+        host: backend-service
+        subset: v2
 ---
 apiVersion: networking.istio.io/v1
 kind: VirtualService
