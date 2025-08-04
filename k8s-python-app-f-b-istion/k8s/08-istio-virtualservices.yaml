@@ -34,7 +34,7 @@ spec:
   http:
   - match:
     - uri:
-        exact: /page1
+        exact: /
     route:
     - destination:
         host: backend-service
