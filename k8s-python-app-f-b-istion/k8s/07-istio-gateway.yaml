@@ -18,7 +18,9 @@ spec:
       name: https
       protocol: HTTPS
     hosts:
-    - "*" # Replace with your real domain
+    - "exp9.osl.team" # Replace with your real domain
+    - "exp-kiali.osl.team"
+    - "exp-jaeger.osl.team"
     tls:
       mode: SIMPLE
       credentialName: python-app-cert
