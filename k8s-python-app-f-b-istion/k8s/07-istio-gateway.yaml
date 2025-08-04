@@ -1,8 +1,8 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: default-gateway
-  namespace: istio-ingress
+  name: app-gateway
+  namespace: istio-app
 spec:
   selector:
     istio: ingress # default label for Istio's ingress gateway
@@ -18,10 +18,35 @@ spec:
       name: https
       protocol: HTTPS
     hosts:
-    - "exp9.osl.team" # Replace with your real domain
+    - "exp9.osl.team"
+    tls:
+      mode: SIMPLE
+      credentialName: python-app-cert
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: trace-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingress # default label for Istio's ingress gateway
+  servers:
+#  - port:
+#      number: 80
+#      name: http
+#      protocol: HTTP
+#    hosts:
+#    - "*"
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
     - "exp-kiali.osl.team"
     - "exp-jaeger.osl.team"
     tls:
       mode: SIMPLE
       credentialName: python-app-cert
+
 
