@@ -71,3 +71,24 @@ spec:
         port:
           # This is the port the Kiali service listens on
           number: 20001
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: kiali-vs
+  namespace: istio-system
+spec:
+  # This must match the hostname defined in the Gateway above
+  hosts:
+  - "exp-jaeger.osl.team"
+  # This virtual service is bound to the gateway we created
+  gateways:
+  - trace-gateway
+  http:
+  - route:
+    - destination:
+        # This is the internal Kubernetes service for Kiali
+        host: tracing
+        port:
+          # This is the port the Kiali service listens on
+          number: 80
