@@ -85,8 +85,12 @@ spec:
           valueFrom: { secretKeyRef: { name: db-redis-secrets, key: MYSQL_PASSWORD } }
         - name: REDIS_PASSWORD
           valueFrom: { secretKeyRef: { name: db-redis-secrets, key: REDIS_PASSWORD } }
-#        - name: APP_VERSION
-#          value: "v2"
+        - name: APP_VERSION
+          value: "v2"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
 #        - name: POD_NAME
 #          valueFrom: { fieldRef: { fieldPath: metadata.name } }
 #        - name: MYSQL_HOST
