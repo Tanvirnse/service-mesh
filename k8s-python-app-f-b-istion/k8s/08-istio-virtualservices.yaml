@@ -91,4 +91,4 @@ spec:
         host: zipkin
         port:
           # This is the port the Kiali service listens on
-          number: 80
+          number: 9411
