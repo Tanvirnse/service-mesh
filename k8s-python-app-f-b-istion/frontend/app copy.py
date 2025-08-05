@@ -29,70 +29,29 @@ provider = TracerProvider(resource=resource)
 provider.add_span_processor(BatchSpanProcessor(otlp_exporter))
 trace.set_tracer_provider(provider)
 
+# Instrument Flask and Requests
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 # --- End OpenTelemetry Configuration ---
 
+# Backend service URL. In K8s, this will be the service name.
 BACKEND_SERVICE_URL = os.environ.get("BACKEND_SERVICE_URL", "http://localhost:8000")
-
-# --- NEW: Explicit Header Propagation ---
-# Define the list of headers to propagate, as recommended by Istio documentation.
-# This ensures that trace context from various providers (Zipkin, W3C, Jaeger, etc.)
-# and Envoy's own request ID are passed downstream.
-HEADERS_TO_PROPAGATE = [
-    # W3C Trace Context headers (Standard)
-    'traceparent',
-    'tracestate',
-    # B3 Trace Context headers (Used by Zipkin, supported by Istio)
-    'x-b3-traceid',
-    'x-b3-spanid',
-    'x-b3-parentspanid',
-    'x-b3-sampled',
-    'x-b3-flags',
-    # Jaeger Trace Context headers (Legacy)
-    'x-ot-span-context',
-    # Envoy-specific header for request tracking
-    'x-request-id',
-    # Other potential headers
-    'x-datadog-trace-id',
-    'x-datadog-parent-id',
-    'x-datadog-sampling-priority',
-]
-
-def _get_tracing_headers(incoming_request):
-    """
-    Extracts all relevant tracing headers from the incoming request
-    to be forwarded to downstream services.
-    """
-    headers = {}
-    for header_name in HEADERS_TO_PROPAGATE:
-        header_value = incoming_request.headers.get(header_name)
-        if header_value:
-            headers[header_name] = header_value
-    return headers
-# --- END NEW ---
 
 def get_backend_data():
     try:
-        # --- MODIFIED: Use the helper function to get tracing headers ---
-        forward_headers = _get_tracing_headers(request)
+        # Check for Istio's trace headers and propagate them
+        trace_headers = ['x-request-id', 'x-b3-traceid', 'x-b3-spanid', 'x-b3-parentspanid', 'x-b3-sampled', 'x-b3-flags']
+        headers = {key: request.headers.get(key) for key in trace_headers if request.headers.get(key)}
         
-        # Add our custom header for v2 routing demonstration
-        forward_headers['x-app-version'] = 'v2'
-        
-        print(f"Forwarding headers to backend: {forward_headers}") # For debugging
-        
-        response = requests.get(
-            f"{BACKEND_SERVICE_URL}/api/data",
-            headers=forward_headers, # Pass the collected headers
-            timeout=5
-        )
+        # Use v2-header to demonstrate Istio routing
+        headers['x-app-version'] = 'v2' # Change to 'v1' to test routing
+
+        response = requests.get(f"{BACKEND_SERVICE_URL}/api/data", headers=headers, timeout=5)
         response.raise_for_status()
         return response.json(), None
     except requests.exceptions.RequestException as e:
         return None, str(e)
 
-# No changes needed for the route handlers below this line
 @app.route('/')
 def index():
     backend_data, error = get_backend_data()
