@@ -55,22 +55,3 @@ spec:
 #  trafficPolicy:
 #   tls:
 #     mode: ISTIO_MUTUAL
-apiVersion: networking.istio.io/v1
-kind: DestinationRule
-metadata:
-  name: tracing
-  namespace: istio-system
-spec:
-  host: tracing
-  trafficPolicy:
-    tls:
-      mode: ISTIO_MUTUAL
----
-apiVersion: "security.istio.io/v1beta1"
-kind: PeerAuthentication
-metadata:
-  name: "default"
-  namespace: "istio-system"
-spec:
- mtls:
-   mode: STRICT
