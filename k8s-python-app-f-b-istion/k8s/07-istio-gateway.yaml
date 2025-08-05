@@ -5,7 +5,7 @@ metadata:
   namespace: istio-apps
 spec:
   selector:
-    istio: ingress # default label for Istio's ingress gateway
+    istio: ingressgateway # default label for Istio's ingress gateway
   servers:
 #  - port:
 #      number: 80
@@ -30,7 +30,7 @@ metadata:
   namespace: istio-system
 spec:
   selector:
-    istio: ingress # default label for Istio's ingress gateway
+    istio: ingressgateway # default label for Istio's ingress gateway
   servers:
 #  - port:
 #      number: 80
