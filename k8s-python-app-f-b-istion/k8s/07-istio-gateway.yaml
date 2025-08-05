@@ -7,21 +7,21 @@ spec:
   selector:
     istio: ingress # default label for Istio's ingress gateway
   servers:
+#  - port:
+#      number: 80
+#      name: http
+#      protocol: HTTP
+#   hosts:
+#    - "exp9.osl.team"
   - port:
-      number: 80
-      name: http
-      protocol: HTTP
+      number: 443
+      name: https
+      protocol: HTTPS
     hosts:
     - "exp9.osl.team"
-#  - port:
-#      number: 443
-#      name: https
-#      protocol: HTTPS
-#    hosts:
-#    - "exp9.osl.team"
-#   tls:
-#     mode: SIMPLE
-#     credentialName: python-app-cert
+    tls:
+     mode: SIMPLE
+     credentialName: python-app-cert
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
