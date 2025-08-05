@@ -64,4 +64,4 @@ spec:
   host: tracing
   trafficPolicy:
     tls:
-      mode: DISABLE
+      mode: ISTIO_MUTUAL
