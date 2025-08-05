@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: istio-apps
   labels:
-    istio-injection: enabled # Enable automatic sidecar injection
+    istio-injection: disable # Enable automatic sidecar injection
