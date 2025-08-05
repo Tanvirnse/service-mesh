@@ -18,7 +18,7 @@ spec:
       serviceAccountName: frontend-sa
       containers:
       - name: frontend
-        image: m2s-registry.osl.team/tanvir-devops/py-app-frontend:v1
+        image: m2s-registry.osl.team/tanvir-devops/py-app-frontend-x:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -52,7 +52,7 @@ spec:
       serviceAccountName: frontend-sa
       containers:
       - name: frontend
-        image: m2s-registry.osl.team/tanvir-devops/py-app-frontend-x:v2
+        image: m2s-registry.osl.team/tanvir-devops/py-app-frontend:v2
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
