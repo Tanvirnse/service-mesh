@@ -88,7 +88,7 @@ spec:
   - route:
     - destination:
         # This is the internal Kubernetes service for Kiali
-        host: zipkin
+        host: tracing
         port:
           # This is the port the Kiali service listens on
-          number: 9411
+          number: 80
