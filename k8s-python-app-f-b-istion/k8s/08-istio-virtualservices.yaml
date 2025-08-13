@@ -91,4 +91,4 @@ spec:
         host: tracing 
         port:
           # This is the port the Kiali service listens on
-          number: 16685
+          number: 80
